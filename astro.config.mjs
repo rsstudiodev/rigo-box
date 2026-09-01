@@ -8,7 +8,6 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://rsstudiodev.github.io',
-  base: '/rigo-box',
   integrations: [react(), sitemap()],
   vite: { plugins: [tailwindcss()] },
   adapter: cloudflare(),
