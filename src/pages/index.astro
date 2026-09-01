@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/index/Hero.astro';
+import About from '../components/index/About.astro';
+import Schedule from '../components/index/Schedule.astro';
+import Coaches from '../components/index/Coaches.astro';
+import Pricing from '../components/index/Pricing.astro';
+import Gallery from '../components/index/Gallery.astro';
+import Location from '../components/index/Location.astro';
+import { sitio } from '../content/sitio';
+
+const seo = {
+  title: `${sitio.nombre}, gimnasio de boxeo en ${sitio.ciudad}`,
+  description:
+    'Gimnasio de boxeo recreativo, amateur y profesional en Zapopan. Horario corrido y Open Box, para todas las edades y todos los niveles.',
+};
+---
+
+<Layout seo={seo}>
+  <main id="contenido">
+    <Hero />
+    <About />
+    <Schedule />
+    <Coaches />
+    <Pricing />
+    <Gallery />
+    <Location />
+  </main>
+</Layout>

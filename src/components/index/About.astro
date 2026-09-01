@@ -1,0 +1,39 @@
+---
+import { nosotros } from '../../content/nosotros';
+import { fotoNosotros } from '../../content/fotos';
+---
+
+<section id="nosotros" class="scroll-mt-[68px] bg-steel-800 px-5 py-24 md:px-8 md:py-32">
+  <div class="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
+    <div class="reveal">
+      <h2 class="display text-[clamp(2.25rem,5.5vw,4.25rem)] text-bone" set:html={nosotros.titulo} />
+      <div class="mt-8 max-w-[58ch] space-y-5">
+        {nosotros.parrafos.map((p) => <p class="font-body text-base leading-relaxed text-bone/75 md:text-lg">{p}</p>)}
+      </div>
+
+      <dl class="mt-12 grid grid-cols-3 gap-6 border-t border-steel-600 pt-8">
+        {
+          nosotros.cifras.map((c) => (
+            <div>
+              <dt class="sr-only">{c.etiqueta}</dt>
+              <dd>
+                <span class="display block text-4xl text-red md:text-5xl">{c.valor}</span>
+                <span class="mt-2 block font-body text-[13px] leading-snug text-bone/55">{c.etiqueta}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="reveal lg:pt-4">
+      <img
+        src={fotoNosotros.url}
+        alt={fotoNosotros.alt}
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-cover grayscale-[0.6] contrast-[1.05] lg:aspect-[4/5]"
+      />
+    </div>
+  </div>
+</section>

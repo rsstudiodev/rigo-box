@@ -1,0 +1,50 @@
+---
+import { logo } from '../../content/fotos';
+import { whatsappUrl, ctaWhatsapp } from '../../content/sitio';
+import WhatsappIcon from '../common/WhatsappIcon.astro';
+
+const lineas = ['Aquí se entrena', 'de verdad'];
+---
+
+<section id="inicio" class="relative flex min-h-[100dvh] items-center overflow-hidden bg-steel-900 px-5 pb-16 pt-24 md:px-8">
+  <div class="relative mx-auto grid w-full max-w-[1400px] items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
+    <div class="logo-drop order-1 justify-self-center lg:order-2 lg:justify-self-end">
+      <img
+        src={logo.grande}
+        alt={logo.alt}
+        width="900"
+        height="900"
+        fetchpriority="high"
+        decoding="async"
+        class="logo-mark logo-swing w-[min(78vw,30rem)] lg:w-[min(38vw,34rem)]"
+      />
+    </div>
+
+    <div class="order-2 lg:order-1">
+      <h1 class="display text-[clamp(2.75rem,7.5vw,5.5rem)] text-bone">
+        {
+          lineas.map((linea, i) => (
+            <span class="hero-line block" style={`animation-delay:${0.5 + i * 0.14}s`}>
+              {linea}
+            </span>
+          ))
+        }
+      </h1>
+
+      <div class="hero-late mt-8 flex flex-col items-start gap-8">
+        <p class="max-w-[46ch] font-body text-base text-bone/75 md:text-lg">
+          Boxeo recreativo, amateur y profesional en Zapopan. Todas las edades, todos los niveles.
+        </p>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex w-full items-center justify-center gap-2.5 bg-red px-8 py-4 font-body text-sm font-bold text-steel-900 transition-transform duration-200 hover:-translate-y-px active:translate-y-px sm:w-auto"
+        >
+          <WhatsappIcon class="h-[1.2em] w-[1.2em]" />
+          {ctaWhatsapp}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

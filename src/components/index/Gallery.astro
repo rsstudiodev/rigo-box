@@ -1,0 +1,15 @@
+---
+import { galeria } from '../../content/fotos';
+import Lightbox from '../common/Lightbox.jsx';
+---
+
+<section id="galeria" class="scroll-mt-[68px] bg-steel-800 px-5 py-24 md:px-8 md:py-32">
+  <div class="mx-auto max-w-[1400px]">
+    <h2 class="reveal display max-w-[20ch] text-[clamp(2.25rem,5.5vw,4.25rem)] text-bone">
+      El gimnasio por dentro
+    </h2>
+    <div class="mt-14">
+      <Lightbox client:visible fotos={galeria} />
+    </div>
+  </div>
+</section>

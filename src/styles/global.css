@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+/* Self-hosted latin subsets. See public/fonts/. */
+@font-face {
+  font-family: 'Archivo Black';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/rigo-box/fonts/archivoblack-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Public Sans';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/rigo-box/fonts/publicsans-var.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+  src: url('/rigo-box/fonts/robotomono-var.woff2') format('woff2-variations');
+}
+
+@theme {
+  /* Gym greys: concrete, steel, rubber floor. Never pure black. */
+  --color-steel-900: #1B1E22;
+  --color-steel-800: #24282D;
+  --color-steel-700: #2E333A;
+  --color-steel-600: #3D434B;
+  --color-steel-500: #6B7280;
+  --color-bone: #EDEAE4;
+  --color-red: #E2483A;
+  --color-green: #3E9E52;
+  --color-wa: #25D366;
+
+  --font-display: 'Archivo Black', 'Helvetica Neue', sans-serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
+  --font-data: 'Roboto Mono', ui-monospace, monospace;
+}
+
+/*
+  Contract
+  --------
+  Radius     zero everywhere, no exception.
+  Structure  the grey step (900 / 800 / 700) marks sections. No rules, no eyebrows.
+  Accent     red on display type, large figures and button fills only. 3.85:1 on
+             steel-900 passes AA for large text, never for body copy.
+  Motion     one orchestrated moment in the hero, one reveal per element elsewhere.
+*/
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-steel-900);
+}
+
+body {
+  @apply bg-steel-900 text-bone font-body antialiased;
+}
+
+::selection {
+  background: var(--color-red);
+  color: var(--color-steel-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
+
+/*
+  The supplied logo is a PNG whose background is a near-black square (#1B191C), a hair
+  darker than steel-900. Clipping to a circle removes the square corners, and the
+  remaining edge is invisible against the band. Only place the mark on steel-900.
+  Swap in an SVG or a transparent PNG when the gym provides one, then drop the clip.
+*/
+.logo-mark {
+  clip-path: circle(49% at 50% 50%);
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  /* 1.06 keeps accented caps clear of the line above. */
+  line-height: 1.06;
+  word-spacing: 0.04em;
+}
+
+/* Hero: one orchestrated moment. ------------------------------------------------
+   The logo is a pair of gloves hanging from a hook, so the page opens the way the
+   gloves do: they drop onto the hook and swing until they settle. */
+
+@keyframes glove-drop {
+  0%   { transform: translateY(-38%) scale(0.94); opacity: 0; }
+  55%  { opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Damped pendulum. Each swing is smaller than the last. */
+@keyframes glove-swing {
+  0%   { transform: rotate(0deg); }
+  18%  { transform: rotate(7.5deg); }
+  36%  { transform: rotate(-5.2deg); }
+  54%  { transform: rotate(3.1deg); }
+  70%  { transform: rotate(-1.7deg); }
+  85%  { transform: rotate(0.7deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes hero-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 -0.15em 0 0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logo-drop {
+  animation: glove-drop 0.62s cubic-bezier(0.34, 0.9, 0.4, 1) both;
+}
+
+.logo-swing {
+  /* The knot at the top of the mark is the pivot. */
+  transform-origin: 50% 6%;
+  animation: glove-swing 2.1s cubic-bezier(0.37, 0, 0.63, 1) 0.5s both;
+}
+
+.hero-line {
+  animation: hero-wipe 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-late {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
+}
+
+/* Scroll reveal: one per element, nothing loops. -------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.reveal.is-in {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-line, .logo-drop, .logo-swing, .hero-late, .reveal.is-in {
+    animation: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

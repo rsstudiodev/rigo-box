@@ -1,0 +1,60 @@
+---
+import { sitio, whatsappUrl, ctaWhatsapp } from '../../content/sitio';
+import { modos } from '../../content/horarios';
+import WhatsappIcon from '../common/WhatsappIcon.astro';
+---
+
+<section id="ubicacion" class="scroll-mt-[68px] bg-steel-900 px-5 py-24 md:px-8 md:py-32">
+  <div class="mx-auto max-w-[1400px]">
+    <h2 class="reveal display max-w-[18ch] text-[clamp(2.25rem,5.5vw,4.25rem)] text-bone">Dónde estamos</h2>
+
+    <div class="mt-14 grid gap-px border border-steel-700 bg-steel-700 lg:grid-cols-[1.5fr_1fr]">
+      <div class="reveal bg-steel-900">
+        <iframe
+          src={sitio.mapaEmbed}
+          title="Mapa de la ubicación de Rigo Box"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="h-[340px] w-full border-0 grayscale-[0.35] md:h-[480px] lg:h-full"></iframe>
+      </div>
+
+      <div class="reveal flex flex-col justify-between gap-10 bg-steel-900 p-8 md:p-12">
+        <div>
+          <p class="font-body text-xl leading-snug text-bone md:text-2xl">{sitio.direccion}</p>
+          <p class="mt-2 font-body text-base text-bone/55">{sitio.ciudad}</p>
+
+          <dl class="mt-10 space-y-5 border-t border-steel-600 pt-8">
+            {
+              modos.map((modo) => (
+                <div>
+                  <dt class="font-body text-[15px] font-semibold text-bone">{modo.nombre}</dt>
+                  <dd class="mt-1 font-data text-sm text-bone/60">{modo.franja}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <a
+            href={sitio.mapaComoLlegar}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="border border-steel-600 px-6 py-4 text-center font-body text-sm font-bold text-bone transition-colors hover:border-bone"
+          >
+            Cómo llegar
+          </a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2.5 bg-red px-6 py-4 font-body text-sm font-bold text-steel-900 transition-transform duration-200 hover:-translate-y-px"
+          >
+            <WhatsappIcon class="h-[1.15em] w-[1.15em]" />
+            {ctaWhatsapp}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
